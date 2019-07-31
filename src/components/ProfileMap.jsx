@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
+import axios from 'axios';
 
 const AnyReactComponent = () => <div>{"text"}</div>;
 
@@ -11,6 +12,14 @@ class ProfileMap extends Component {
     },
     zoom: 11
   };
+
+  componentDidMount() {
+    axios.get(`http://192.168.1.43/users/`)
+      .then(res => {
+        const direcciones = res.data;
+        console.log(direcciones);
+      })
+  }
 
   render() {
     return (
