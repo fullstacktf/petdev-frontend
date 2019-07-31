@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import GridLogin from './components/GridLogin';
+import HeaderUserProfile from './components/HeaderUserProfile';
+import UserCard from './components/CardUser';
+import GridUserProfile from './components/GridUserProfile'
+import NewUserGrid from './components/NewUserGrid';
+import UserContainer from './components/UserContainer';
+import SidebarHomePage from './components/Sidebar';
+import HeaderHomePage from './components/HeaderLandingPage';
+import InputSearchHomePage from './components/SearchHomePage';
+import ContainerHomePage from './components/ContainerHomePage';
+
 import './App.css';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SidebarHomePage/>
     </div>
   );
 }
