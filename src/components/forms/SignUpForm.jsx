@@ -2,12 +2,12 @@ import React, {useState} from "react";
 import styled from "@emotion/styled";
 import axios from 'axios';
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   margin: auto;
   width: 100px;
 `;
