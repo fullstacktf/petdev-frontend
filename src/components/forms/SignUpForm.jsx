@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import styled from "@emotion/styled";
 import axios from 'axios';
 
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -16,13 +15,15 @@ const Button = styled.button`
 const InputField = styled.div`
 
 `; 
-const Input = ({ name, type = "text", label, value, handleChange }) => {
+
+const Input = ({ name, placeholder = "", type = "text", label, value, handleChange }) => {
   return <InputField>
     {label}:
     <input
       name={name}
       type={type}
       value={value[name]}
+      placeholder={placeholder}
       onChange={handleChange}
     />
   </InputField>;
@@ -64,7 +65,7 @@ const FIELDS = [
   { label: "Country", name: "country" },
   { label: "Province", name: "province" },
   { label: "Address", name: "addressLine" },
-  { label: "Postal code", name: "postalCode" },
+  { label: "Postal code", name: "postalCode", placeholder: "Papa" },
   { label: "Lat", name: "lat", type: "number" },
   { label: "Lng", name: "lng", type: "number" }
 ];
@@ -81,7 +82,7 @@ export function SignUpForm () {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    const cleanFormData = (data) => {
+  const cleanFormData = (data) => {
       delete data.addressLine;
       delete data.country;
       delete data.province;
@@ -91,53 +92,35 @@ export function SignUpForm () {
 
       return data;
     }
-    const address = {
+
+  const address = {
       country: formData.country,
       province: formData.province,
       addressLine: formData.addressLine,
       postal: formData.postalCode
       }
-    
-    const geo = {
+
+  const geo = {
         coordinates: [formData.lng, formData.lat]
       }
 
-    const data = {...formData, address, geo};
+  const data = {...formData, address, geo};
     
-    cleanFormData(data);
+  cleanFormData(data);
 
-    console.log(data);
-    axios({
+  console.log(data);
+  
+  axios({
       method: 'post',
       url: 'http://localhost:3001/api/users/',
       data
       } );
-    
-
 }
 
   return(
   <Form onSubmit={handleSubmit}>
     {FIELDS.map((field, i)=> <Input handleChange={handleChange} key={i} value={formData} {...field}/>)}
-
-{/*     <LatLngContainer>
-      <CoordInput
-        name="lat"
-        type="number"
-        value={coords}
-        onChange={handleChange}
-        placeholder="Lat"
-      />
-      <CoordInput
-        name="lng"
-        type="number"
-        value={coords}
-        onChange={handleChange}
-        placeholder="Lng"
-      />
-    </LatLngContainer>  */}
     <Button>Enviar</Button>
-
   </Form>
   )
 };
