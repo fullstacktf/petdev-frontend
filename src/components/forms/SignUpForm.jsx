@@ -81,6 +81,16 @@ export function SignUpForm () {
   const handleSubmit = (event) => {
     event.preventDefault();
     
+    const cleanFormData = (data) => {
+      delete data.addressLine;
+      delete data.country;
+      delete data.province;
+      delete data.postalCode;
+      delete data.lat;
+      delete data.lng;
+
+      return data;
+    }
     const address = {
       country: formData.country,
       province: formData.province,
@@ -88,15 +98,20 @@ export function SignUpForm () {
       postal: formData.postalCode
       }
     
-      const geo = {
+    const geo = {
         coordinates: [formData.lng, formData.lat]
       }
 
+    const data = {...formData, address, geo};
+    
+    cleanFormData(data);
+
+    console.log(data);
     axios({
       method: 'post',
       url: 'http://localhost:3001/api/users/',
-      data: {...formData, address, geo} 
-    });
+      data
+      } );
     
 
 }
